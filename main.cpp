@@ -1,9 +1,11 @@
 #include <iostream>
 #include <conio.h>
 #include <thread>
+#include <stdlib.h>
 using namespace std;
+
 const int width = 40;
-const int height = 25;
+const int height = 26;
 char screen[height][width];
 int x = width / 2;
 int y = height / 2;
@@ -16,21 +18,43 @@ int Lscore = 0;
 int Rscore = 0;
 int speedx = 1;
 int speedy = 1;
-int Cvalue;
+int Cvalue = 1;
 
-int RandCoord()
-{
-    srand(time(0));
-    Cvalue = (rand() % 4) + 1;
-    return Cvalue;
-}
 void ResetCoord()
  {
+    
      x = width / 2;
      y = width / 2;
-     speedx = 1;
-     speedy = 1;
+     
  }
+
+int RandCoord()
+{ 
+    {
+    srand(time(0));
+    Cvalue = (rand() % 4) ;
+    }
+    switch(Cvalue)
+     {
+        case '1':
+            speedx = 1;
+            speedy = 1;
+            break;  
+        case '2':
+            speedx = 1;
+            speedy = -1;
+            break;  
+        case '3':
+            speedx = -1;
+            speedy = 1;
+            break;  
+        case '4':
+            speedx = -1;
+            speedy = -1;
+            break;        
+}
+return speedx , speedy;
+}
  
 void print()
 {
@@ -74,19 +98,30 @@ void print()
 
 void Logic()
 {
- P2Y = y;
+    if (!Gameover)
+     {
+     x += 1 * speedx;
+     y += 1 * speedy;
+     
+     } 
+ if ( y > 0 || y != height - 1)
+ {
+    P2Y = y;
+ }
  if (x == width - 2 )
  {
     Lscore +=1;
     ResetCoord();
+    RandCoord();
  }
- if (x == 2 )
+ if (x == 1 )
 {
     Rscore +=1;
     ResetCoord();
+    RandCoord();
  }
  if (y == 1 )
-    speedy = -1;
+    speedy =  1;
  if (y == height - 1 )
     speedy = -1;
 
@@ -97,38 +132,13 @@ void Logic()
     speedx = - 1;
     speedy = - 1;
  } 
- if (x == P2X  && (y == P2Y - 1 || y == P2Y || y == P2Y + 1)  )
- {
+ if (x == P2X + 1  && ((y == P2Y - 1) || (y == P2Y) || (y == P2Y + 1) ) )
+  {
     speedx = 1;
     speedy = 1;
+  }
  }
- if (!Gameover)
- {
-    if( Cvalue == 1)
-    {
-        x += 1 * speedx;
-        y += 1 * speedy;
-    }
-    if( Cvalue == 2)
-    {
-        x += 1 * speedx;
-        y -= 1 * speedy;
-    }
-    if( Cvalue == 3)
-    {
-        x -= 1 * speedx;
-        y += 1 * speedy;
-    }
-    if( Cvalue == 4)
-    {
-        x -= 1 * speedx;
-        y -= 1 * speedy;
-    }
- }
- 
- 
-
-}
+  
 void Input()
 {
 	if (kbhit()) // проверяет нажата ли клавиша
@@ -150,6 +160,7 @@ void Input()
 			Gameover = true;
 			break;
 		}
+  
 }
 
 int main()
