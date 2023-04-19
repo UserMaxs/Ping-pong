@@ -1,7 +1,6 @@
 #include <iostream>
 #include <conio.h>
 #include <thread>
-#include <stdlib.h>
 using namespace std;
 
 const int width = 40;
