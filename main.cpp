@@ -19,14 +19,14 @@ int speedx = 1;
 int speedy = 1;
 int Cvalue = 1;
 
-int ResetCoord()
+void ResetCoord()
  {
      x = width / 2;
      y = height / 2;
-  return x,y;
+
  }
 
-int RandCoord()
+void RandCoord()
 {
     srand(time(0));
     Cvalue = (rand() % 4);
@@ -50,7 +50,7 @@ int RandCoord()
             speedy = -1;
             break;        
 }
-return speedx , speedy;
+
 }
  
 void print()
