@@ -21,8 +21,8 @@ int Cvalue = 1;
 
 void ResetCoord()
  {
-     x = width / 2;
-     y = width / 2;
+     x = 20;
+     y = 13;
  }
 
 int RandCoord()
