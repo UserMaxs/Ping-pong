@@ -19,10 +19,11 @@ int speedx = 1;
 int speedy = 1;
 int Cvalue = 1;
 
-void ResetCoord()
+int ResetCoord()
  {
-     x = 20;
-     y = 13;
+     x = width / 2;
+     y = height / 2;
+  return x,y;
  }
 
 int RandCoord()
