@@ -21,10 +21,8 @@ int Cvalue = 1;
 
 void ResetCoord()
  {
-    
      x = width / 2;
      y = width / 2;
-     
  }
 
 int RandCoord()
@@ -100,8 +98,7 @@ void Logic()
     if (!Gameover)
      {
      x += 1 * speedx;
-     y += 1 * speedy;
-     
+     y += 1 * speedy;  
      } 
  if ( y > 0 || y != height - 1)
  {
@@ -140,26 +137,24 @@ void Logic()
   
 void Input()
 {
-	if (kbhit()) // проверяет нажата ли клавиша
-		switch (getch())
-		{ // просит нажать клавишу
-		case 'w':
-         if( P1Y != 2 )
-			P1Y--;
-            else
-             break;
-			break;
-		case 's':
-        if(P1Y < height - 3  )
-			P1Y++;
-			else
-             break;
-            break;
-		case 'x':
-			Gameover = true;
-			break;
-		}
-  
+if (kbhit()) // проверяет нажата ли клавиша
+ switch (getch())
+  { // просит нажать клавишу
+   case 'w':
+   if( P1Y != 2 )
+     P1Y--;
+    else
+     break;
+   break;
+   case 's':
+   if(P1Y < height - 3  )
+     P1Y++;
+    else
+     break;
+   break;
+   case 'x':
+     Gameover = true;
+   break;
 }
 
 int main()
