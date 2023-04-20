@@ -26,11 +26,10 @@ void ResetCoord()
  }
 
 int RandCoord()
-{ 
-    {
+{
     srand(time(0));
-    Cvalue = (rand() % 4) ;
-    }
+    Cvalue = (rand() % 4);
+ 
     switch(Cvalue)
      {
         case '1':
