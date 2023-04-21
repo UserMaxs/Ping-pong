@@ -1,13 +1,15 @@
 #include <iostream>
 #include <conio.h>
 #include <thread>
+#include <stdlib.h>
+#include <ctime>
 using namespace std;
 
 const int width = 40;
 const int height = 26;
 char screen[height][width];
-int x = width / 2;
-int y = height / 2;
+float x = width / 2;
+float y = height / 2;
 bool Gameover = false;
 int P1X = width - 2; //p - plate
 int P1Y = height / 2;
@@ -15,41 +17,41 @@ int P2X = 1;
 int P2Y = height / 2;
 int Lscore = 0;
 int Rscore = 0;
-int speedx = 1;
-int speedy = 1;
+float speedx = 1;
+float speedy = 1;
 int Cvalue = 1;
 
 void ResetCoord()
  {
+    
      x = width / 2;
      y = height / 2;
-
  }
 
 void RandCoord()
-{
+{ 
     srand(time(0));
-    Cvalue = (rand() % 4);
- 
-    switch(Cvalue)
-     {
-        case '1':
+    Cvalue = rand() % 4;
+    if (Cvalue == 1)
+    {
             speedx = 1;
             speedy = 1;
-            break;  
-        case '2':
+    }
+        if (Cvalue == 2)
+    {
             speedx = 1;
-            speedy = -1;
-            break;  
-        case '3':
+            speedy = -1; 
+    }
+        if (Cvalue == 3)
+    {
             speedx = -1;
-            speedy = 1;
-            break;  
-        case '4':
+            speedy = 1; 
+    }
+         if (Cvalue == 4)
+    {
             speedx = -1;
             speedy = -1;
-            break;        
-}
+    }   
 
 }
  
@@ -76,10 +78,9 @@ void print()
         if( w == P2X && h == P2Y)
             screen[h][w] = '|';
         if( w == P2X && h == P2Y  + 1)
-            screen[h][w] = '|';
-        if( w == x && h == y)
-            screen[h][w] = '@';    
+            screen[h][w] = '|'; 
      }
+     screen[int(y)][int (x)] = '@';
  } 
     for(int h = 0; h < height;h++)
    {
@@ -98,7 +99,8 @@ void Logic()
     if (!Gameover)
      {
      x += 1 * speedx;
-     y += 1 * speedy;  
+     y += 1 * speedy;
+     
      } 
  if ( y > 0 || y != height - 1)
  {
@@ -137,24 +139,26 @@ void Logic()
   
 void Input()
 {
-if (kbhit()) // проверяет нажата ли клавиша
-    switch (getch())
-    { // просит нажать клавишу
-    case 'w':
-     if( P1Y != 2 )
-        P1Y--;
-     else
-       break;
-    break;
-    case 's':
-     if(P1Y < height - 3  )
-        P1Y++;
-     else
-       break;
-    break;
-    case 'x':
-     Gameover = true;
-    break;
+	if (kbhit()) // проверяет нажата ли клавиша
+		switch (getch())
+		{ // просит нажать клавишу
+		case 'w':
+         if( P1Y != 2 )
+			P1Y--;
+            else
+             break;
+			break;
+		case 's':
+        if(P1Y < height - 3  )
+			P1Y++;
+			else
+             break;
+            break;
+		case 'x':
+			Gameover = true;
+			break;
+		}
+  
 }
 
 int main()
