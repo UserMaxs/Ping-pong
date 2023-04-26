@@ -17,13 +17,14 @@ int P2X = 1;
 int P2Y = height / 2;
 int Lscore = 0;
 int Rscore = 0;
-float speedx = 1;
-float speedy = 1;
+double speedx = 1;
+double speedy = 1;
 int Cvalue = 1;
 
-void ResetCoord()
+void ResetCoord_speed()
  {
-    
+     speedx = 1;
+     speedy = 1;
      x = width / 2;
      y = height / 2;
  }
@@ -34,23 +35,23 @@ void RandCoord()
     Cvalue = rand() % 4;
     if (Cvalue == 1)
     {
-            speedx = 1;
-            speedy = 1;
+            speedx *= 1;
+            speedy *= 1;
     }
         if (Cvalue == 2)
     {
-            speedx = 1;
-            speedy = -1; 
+            speedx *= 1;
+            speedy *= -1; 
     }
         if (Cvalue == 3)
     {
-            speedx = -1;
-            speedy = 1; 
+            speedx *= -1;
+            speedy *= 1; 
     }
          if (Cvalue == 4)
     {
-            speedx = -1;
-            speedy = -1;
+            speedx *= -1;
+            speedy *= -1;
     }   
 
 }
@@ -91,7 +92,9 @@ void print()
    }
    cout << "Score: " << Lscore << '/' << Rscore ;
    cout << endl;
+this_thread::sleep_for(chrono::milliseconds(100));
 }
+
 
 
 void Logic()
@@ -102,39 +105,44 @@ void Logic()
      y += 1 * speedy;
      
      } 
- if ( y > 0 || y != height - 1)
- {
-    P2Y = y;
- }
+ P2Y = y;
  if (x == width - 2 )
  {
     Lscore +=1;
-    ResetCoord();
+    ResetCoord_speed();
     RandCoord();
  }
  if (x == 1 )
 {
     Rscore +=1;
-    ResetCoord();
+    ResetCoord_speed();
     RandCoord();
  }
  if (y == 1 )
-    speedy =  1;
+    speedy *=  -1 ;
  if (y == height - 1 )
-    speedy = -1;
+    speedy *= -1;
 
  
 
  if (x == P1X - 1  && (y == P1Y - 1 || y == P1Y || y == P1Y + 1)  )
  { 
-    speedx = - 1;
-    speedy = - 1;
+    speedx = - 1 * (speedx + 0,1);
+   if (speedy > 0)
+    speedy =  1 * (speedy + 0,1);
+   if ( speedy < 0)
+    speedy = speedy - 0,1;   
  } 
  if (x == P2X + 1  && ((y == P2Y - 1) || (y == P2Y) || (y == P2Y + 1) ) )
   {
-    speedx = 1;
-    speedy = 1;
+     speedx =  (speedx - 0,1);
+    if ( speedy > 0)
+       speedy = speedx + 0,1;
+    if ( speedy < 0)
+      speedy = -1 * (speedx - 0,1);
   }
+  this_thread::sleep_for(chrono::milliseconds(50));
+
  }
   
 void Input()
@@ -143,7 +151,7 @@ void Input()
 		switch (getch())
 		{ // просит нажать клавишу
 		case 'w':
-         if( P1Y != 2 )
+         if( P1Y != 2  )
 			P1Y--;
             else
              break;
@@ -158,6 +166,8 @@ void Input()
 			Gameover = true;
 			break;
 		}
+this_thread::sleep_for(chrono::milliseconds(0));
+
   
 }
 
@@ -167,8 +177,8 @@ while(!Gameover)
 {
  system("clear");
  print();
- Logic();
  Input();
- this_thread::sleep_for(chrono::milliseconds(160));
+ Logic();
+
 }
-}
+} 
